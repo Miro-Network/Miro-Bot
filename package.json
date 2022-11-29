@@ -19,7 +19,8 @@
    "homepage": "https://github.com/phucho0237/wickie#readme",
    "dependencies": {
       "discord.js": "^14.7.0",
-      "dotenv": "^16.0.3"
+      "dotenv": "^16.0.3",
+      "terminal-kit": "^3.0.0"
    },
    "devDependencies": {
       "nodemon": "^2.0.20"
