@@ -1,19 +1,27 @@
 {
-  "name": "wickie",
-  "version": "1.0.0",
-  "description": "",
-  "main": "src/main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/phucho0237/wickie.git"
-  },
-  "author": "Nhu Phuc",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/phucho0237/wickie/issues"
-  },
-  "homepage": "https://github.com/phucho0237/wickie#readme"
+   "name": "wickie",
+   "version": "1.0.0",
+   "description": "",
+   "main": "./src/main.js",
+   "scripts": {
+      "start": "node .",
+      "dev": "nodemon ./src/main.js"
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/phucho0237/wickie.git"
+   },
+   "author": "Nhu Phuc",
+   "license": "MIT",
+   "bugs": {
+      "url": "https://github.com/phucho0237/wickie/issues"
+   },
+   "homepage": "https://github.com/phucho0237/wickie#readme",
+   "dependencies": {
+      "discord.js": "^14.7.0",
+      "dotenv": "^16.0.3"
+   },
+   "devDependencies": {
+      "nodemon": "^2.0.20"
+   }
 }
