@@ -37,7 +37,7 @@ module.exports = {
          limit: amount + 1,
       });
 
-      const res = new EmbedBuilder().setColor("#12acdb");
+      const res = new EmbedBuilder().setColor("Aqua");
 
       if (target) {
          let i = 0;
