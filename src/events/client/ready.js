@@ -16,6 +16,6 @@ module.exports = {
       if (mongoose.connect)
          term.cyan("> [DATABASE] | Successfully connected to database\n");
 
-      term.cyan(`> [CLIENT] | Logged in as ${client.user.tag}`);
+      term.cyan(`> [CLIENT] | Logged in as ${client.user.tag}\n`);
    },
 };

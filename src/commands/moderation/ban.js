@@ -1,23 +1,23 @@
 const {
    SlashCommandBuilder,
    PermissionFlagsBits,
-   EmbedBuilder,
    ChatInputCommandInteraction,
+   EmbedBuilder,
 } = require("discord.js");
 
 module.exports = {
    data: new SlashCommandBuilder()
-      .setName("kick")
-      .setDescription("Kick a user")
-      .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
+      .setName("ban")
+      .setDescription("Ban a user")
+      .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
       .addUserOption((option) =>
          option
             .setName("target")
-            .setDescription("User to be kicked")
+            .setDescription("User to be banned")
             .setRequired(true)
       )
       .addStringOption((option) =>
-         option.setName("reason").setDescription("Reason for the kick")
+         option.setName("reason").setDescription("Reason for the ban")
       ),
    /**
     *
@@ -46,13 +46,13 @@ module.exports = {
             ephemeral: true,
          });
 
-      await member.kick(reason);
+      await member.ban({ reason });
       await interaction.reply({
          embeds: [
             new EmbedBuilder()
                .setColor("Aqua")
                .setDescription(
-                  `**Successfully kicked \`${user.tag}\` with reason: \`${reason}\`**`
+                  `**Successfully banned \`${user.tag}\` with reason: \`${reason}\`**`
                )
                .setTimestamp(),
          ],
