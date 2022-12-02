@@ -23,7 +23,7 @@ module.exports = {
    async execute(interaction) {
       const { options } = interaction;
 
-      const userID = options.getInteger("id");
+      const userID = options.getString("id");
 
       try {
          if (!isNaN(userID))
