@@ -20,7 +20,10 @@ client.commands = new Collection();
 
 client.config = require("./config");
 
-client.login(client.config.token).then(() => {
+const encodedToken = Buffer.from(client.config.token, "base64");
+const decodedToken = encodedToken.toString("utf-8");
+
+client.login(decodedToken).then(() => {
    loadEvents(client);
    loadCommands(client);
 });
