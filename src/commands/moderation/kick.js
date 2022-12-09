@@ -51,9 +51,14 @@ module.exports = {
          embeds: [
             new EmbedBuilder()
                .setColor("Aqua")
-               .setDescription(
-                  `**Successfully kicked \`${user.tag}\` with reason: \`${reason}\`**`
-               )
+               .setTitle("💥 Moderation Execution")
+               .setDescription(`**Successfully kicked \`${user.tag}\`**`)
+               .setThumbnail(user.displayAvatarURL({ extension: "png" }))
+               .addFields({
+                  name: "Reason:",
+                  value: `\`${reason}\``,
+                  inline: true,
+               })
                .setTimestamp(),
          ],
       });
