@@ -1,9 +1,9 @@
 var term = require("terminal-kit").terminal;
 
 function loadErrors() {
-   process.on("unhandledRejection", (reason, p) => {
+   process.on("unhandledRejection", (reason) => {
       term.red("> [ERROR] | Unhandled Rejection\n");
-      term.red(reason, p, "\n");
+      term.red(reason, "\n");
    });
    process.on("uncaughtException", (err) => {
       term.red("> [ERROR] | Uncaught Exception\n");
