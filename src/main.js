@@ -25,7 +25,7 @@ const encodedToken = Buffer.from(client.config.token, "base64");
 const decodedToken = encodedToken.toString("utf-8");
 
 client.login(decodedToken).then(() => {
-   loadErrors();
    loadEvents(client);
    loadCommands(client);
+   loadErrors();
 });
