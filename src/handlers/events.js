@@ -21,7 +21,8 @@ function loadEvents(client) {
                client.rest.on(event.name, (...args) =>
                   event.execute(...args, client)
                );
-         } else {
+         } else if (event.custom) event.execute(client);
+         else {
             if (event.once)
                client.once(event.name, (...args) =>
                   event.execute(...args, client)
