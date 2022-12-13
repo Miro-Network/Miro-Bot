@@ -6,7 +6,6 @@ const {
 } = require("discord.js");
 const { loadEvents } = require("./handlers/events");
 const { loadCommands } = require("./handlers/commands");
-const { loadErrors } = require("./handlers/errors");
 
 const { Guilds, GuildMembers, GuildMessages } = GatewayIntentBits;
 const { User, Message, GuildMember, ThreadMember, Channel } = Partials;
@@ -27,5 +26,4 @@ const decodedToken = encodedToken.toString("utf-8");
 client.login(decodedToken).then(() => {
    loadEvents(client);
    loadCommands(client);
-   loadErrors();
 });
