@@ -20,7 +20,7 @@ function loadCommands(client) {
          commandsArray.push(commandFile.data.toJSON());
 
          table.addRow(file, "✅");
-         continue;
+         // continue;
       }
    }
 

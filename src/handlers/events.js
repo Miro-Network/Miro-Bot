@@ -33,7 +33,7 @@ function loadEvents(client) {
                );
          }
          table.addRow(file, "✅");
-         continue;
+         // continue;
       }
    }
    return console.log(table.toString());

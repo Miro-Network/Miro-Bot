@@ -1,6 +1,6 @@
 const { Client } = require("discord.js");
 const { mongoose } = require("mongoose");
-var term = require("terminal-kit").terminal;
+let term = require("terminal-kit").terminal;
 
 module.exports = {
    name: "ready",
