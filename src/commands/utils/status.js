@@ -26,7 +26,10 @@ module.exports = {
                      client.ws.ping
                   }ms\`\n**Uptime:** <t:${parseInt(
                      client.readyTimestamp / 1000
-                  )}:R>`
+                  )}:R> (<t:${(
+                     Date.now() / 1000 -
+                     client.uptime / 1000
+                  ).toFixed(0)}>)`
                ),
          ],
       });
