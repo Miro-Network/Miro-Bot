@@ -52,7 +52,7 @@ module.exports = {
 
          await channel.bulkDelete(filtered).then((messages) => {
             res.setDescription(
-               `Successfully deleted ${messages.size} messages from ${target}`
+               `Successfully deleted \`${messages.size} message(s)\` from ${target}`
             );
             interaction.reply({
                embeds: [res],
@@ -61,7 +61,7 @@ module.exports = {
       } else {
          await channel.bulkDelete(amount, true).then((messages) => {
             res.setDescription(
-               `Successfully deleted ${messages.size} messages from the channel`
+               `Successfully deleted \`${messages.size} message(s)\` from the channel`
             );
             interaction.reply({
                embeds: [res],
