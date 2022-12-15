@@ -2,7 +2,6 @@ const {
    SlashCommandBuilder,
    PermissionFlagsBits,
    ChatInputCommandInteraction,
-   Client,
 } = require("discord.js");
 
 module.exports = {
@@ -13,9 +12,8 @@ module.exports = {
    /**
     *
     * @param {ChatInputCommandInteraction} interaction
-    * @param {Client} client
     */
-   async execute(interaction, client) {
+   async execute(interaction) {
       await interaction.channel.clone().then((channel) => {
          channel
             .setPosition(interaction.channel.position)
