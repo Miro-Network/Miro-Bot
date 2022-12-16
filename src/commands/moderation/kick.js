@@ -46,7 +46,7 @@ module.exports = {
             new EmbedBuilder()
                .setColor("Aqua")
                .setTitle("💥 Moderation Execution")
-               .setDescription(`**Successfully kicked \`${user.tag}\`**`)
+               .setDescription(`Successfully kicked \`${user.tag}\``)
                .setThumbnail(user.displayAvatarURL({ extension: "png" }))
                .addFields({
                   name: "Reason:",

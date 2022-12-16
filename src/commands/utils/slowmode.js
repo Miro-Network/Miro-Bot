@@ -41,7 +41,9 @@ module.exports = {
                   .setColor("Aqua")
                   .setDescription(
                      `Successfully set the slowmode for this channel to \`0s\``
-                  ),
+                  )
+
+                  .setTimestamp(),
             ],
          });
       }
@@ -56,7 +58,8 @@ module.exports = {
                   .setColor("Aqua")
                   .setDescription(
                      `Successfully set the slowmode for this channel to \`${i}s\``
-                  ),
+                  )
+                  .setTimestamp(),
             ],
          });
       }
@@ -69,7 +72,8 @@ module.exports = {
                   .setColor("Aqua")
                   .setDescription(
                      `Successfully set the slowmode for this channel to \`${time}s\``
-                  ),
+                  )
+                  .setTimestamp(),
             ],
          });
       }
@@ -84,7 +88,8 @@ module.exports = {
                   .setColor("Aqua")
                   .setDescription(
                      `Successfully set the slowmode for this channel to \`${k}s\``
-                  ),
+                  )
+                  .setTimestamp(),
             ],
          });
       }
@@ -96,7 +101,8 @@ module.exports = {
                .setColor("Aqua")
                .setDescription(
                   `**Successfully set the slowmode for this channel to \`${time}\`**`
-               ),
+               )
+               .setTimestamp(),
          ],
       });
    },

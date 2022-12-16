@@ -47,7 +47,7 @@ module.exports = {
                new EmbedBuilder()
                   .setColor("Aqua")
                   .setDescription(
-                     `**Successfully unbanned ID: \`${userID}\` from the guild**`
+                     `Successfully unbanned ID: \`${userID}\` from the guild`
                   )
                   .setTimestamp()
                   .setFooter(`Action by ${interaction.user.tag}`),
