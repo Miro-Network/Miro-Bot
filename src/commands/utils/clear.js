@@ -2,7 +2,6 @@ const {
    SlashCommandBuilder,
    PermissionFlagsBits,
    ChatInputCommandInteraction,
-   Client,
    EmbedBuilder,
 } = require("discord.js");
 
@@ -25,16 +24,21 @@ module.exports = {
    /**
     *
     * @param {ChatInputCommandInteraction} interaction
-    * @param {Client} client
     */
-   async execute(interaction, client) {
+   async execute(interaction) {
       const { channel, options } = interaction;
 
       const amount = options.getInteger("amount");
       const target = options.getUser("target");
 
+      if (amount === 0)
+         return interaction.reply({
+            content: "You can't delete 0 message",
+            ephemeral: true,
+         });
+
       const messages = await channel.messages.fetch({
-         limit: amount + 1,
+         limit: amount,
       });
 
       const res = new EmbedBuilder().setColor("Aqua");
