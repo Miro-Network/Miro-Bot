@@ -39,9 +39,7 @@ module.exports = {
             embeds: [
                new EmbedBuilder()
                   .setColor("Aqua")
-                  .setDescription(
-                     `Successfully set the slowmode for this channel to \`0s\``
-                  )
+                  .setDescription(`Successfully turn off the slowmode`)
 
                   .setTimestamp(),
             ],
