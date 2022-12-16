@@ -107,7 +107,7 @@ module.exports = {
          });
 
          term.yellow(
-            `[CLIENT] | Presence update:\n- Activity type: ${activity}\n- Activity name: ${activityName}\n- Status: ${status}\n`
+            `> [CLIENT] | Presence update:\n- Activity type: ${activity}\n- Activity name: ${activityName}\n- Status: ${status}\n`
          );
       } catch (err) {
          console.error(err);
