@@ -22,7 +22,7 @@ module.exports = {
     *
     * @param {ChatInputCommandInteraction} interaction
     */
-   execute(interaction) {
+   async execute(interaction) {
       const { options } = interaction;
       const time = options.getString("time");
 
@@ -33,8 +33,8 @@ module.exports = {
             ephemeral: true,
          });
 
-      if (time === "0s") {
-         interaction.channel.setRateLimitPerUser(0);
+      if (time === "0s" || time === "0") {
+         await interaction.channel.setRateLimitPerUser(0);
          return interaction.reply({
             embeds: [
                new EmbedBuilder()
@@ -49,7 +49,7 @@ module.exports = {
       if (time.startsWith("-") && time.endsWith("s")) {
          i = Math.abs(time.slice(0, -1));
 
-         interaction.channel.setRateLimitPerUser(i);
+         await interaction.channel.setRateLimitPerUser(i);
          return interaction.reply({
             embeds: [
                new EmbedBuilder()
@@ -61,7 +61,36 @@ module.exports = {
          });
       }
 
-      interaction.channel.setRateLimitPerUser(millisecond / 1000);
+      if (!time.endsWith("s") && !time.startsWith("-")) {
+         await interaction.channel.setRateLimitPerUser(ms(time));
+         return interaction.reply({
+            embeds: [
+               new EmbedBuilder()
+                  .setColor("Aqua")
+                  .setDescription(
+                     `Successfully set the slowmode for this channel to \`${time}s\``
+                  ),
+            ],
+         });
+      }
+
+      if (!time.endsWith("s") && time.startsWith("-")) {
+         k = Math.abs(time.slice(1));
+         j = k + "s";
+
+         await interaction.channel.setRateLimitPerUser(ms(j));
+         return interaction.reply({
+            embeds: [
+               new EmbedBuilder()
+                  .setColor("Aqua")
+                  .setDescription(
+                     `Successfully set the slowmode for this channel to \`${k}s\``
+                  ),
+            ],
+         });
+      }
+
+      await interaction.channel.setRateLimitPerUser(millisecond / 1000);
       return interaction.reply({
          embeds: [
             new EmbedBuilder()
