@@ -75,10 +75,9 @@ module.exports = {
       }
 
       if (!time.endsWith("s") && time.startsWith("-")) {
-         k = Math.abs(time.slice(1));
-         j = k + "s";
+         k = Math.abs(time);
 
-         await interaction.channel.setRateLimitPerUser(ms(j));
+         await interaction.channel.setRateLimitPerUser(k);
          return interaction.reply({
             embeds: [
                new EmbedBuilder()
