@@ -36,7 +36,7 @@ module.exports = {
          interaction.member.roles.highest.position
       )
          return interaction.reply({
-            content: `**You can't take action on \`${user.tag}\` since they have a higher role**`,
+            content: `You can't take action on \`${user.tag}\` since they have a higher role`,
             ephemeral: true,
          });
 

@@ -28,7 +28,7 @@ module.exports = {
       try {
          if (!isNaN(userID))
             return interaction.reply({
-               content: "**Please enter an correct ID**",
+               content: "Please enter an correct ID",
                ephemeral: true,
             });
 
@@ -36,7 +36,7 @@ module.exports = {
             let banUser = ban.find((b) => b.user.id == userID);
             if (!banUser)
                return interaction.reply({
-                  content: "**User not found in banishment list**",
+                  content: "User not found in banishment list",
                   ephemeral: true,
                });
          });
