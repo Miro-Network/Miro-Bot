@@ -4,19 +4,23 @@ const {
    Partials,
    Collection,
 } = require("discord.js");
+const { DisTube } = require("distube");
+const { SpotifyPlugin } = require("@distube/spotify");
 const { loadEvents } = require("./handlers/events");
 const { loadCommands } = require("./handlers/commands");
 
-const { Guilds, GuildMembers, GuildMessages } = GatewayIntentBits;
-const { User, Message, GuildMember, ThreadMember, Channel } = Partials;
-
 const client = new Client({
    allowedMentions: { parse: ["users", "roles"], repliedUser: true },
-   intents: [Guilds, GuildMembers, GuildMessages],
-   partials: [User, Message, GuildMember, ThreadMember, Channel],
+   intents: [Object.keys(GatewayIntentBits)],
+   partials: [Object.keys(Partials)],
 });
 
 client.commands = new Collection();
+client.distube = new DisTube(client, {
+   emitNewSongOnly: true,
+   emitAddSongWhenCreatingQueue: false,
+   plugins: [new SpotifyPlugin()],
+});
 
 client.config = require("./config");
 
@@ -27,3 +31,5 @@ client.login(decodedToken).then(() => {
    loadEvents(client);
    loadCommands(client);
 });
+
+module.exports = client;
