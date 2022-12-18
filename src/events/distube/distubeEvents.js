@@ -1,16 +1,8 @@
-const client = require("../../main");
 const { EmbedBuilder } = require("discord.js");
+const client = require("../../main");
 
-const status = (queue) =>
-   `Volume: \`${queue.volume}%\` | Filter: \`${
-      queue.filters.names.join(", ") || "Off"
-   }\` | Loop: \`${
-      queue.repeatMode
-         ? queue.repeatMode === 2
-            ? "All Queue"
-            : "This Song"
-         : "Off"
-   }\` | Autoplay: \`${queue.autoplay ? "On" : "Off"}\``;
+let term = require("terminal-kit").terminal;
+
 client.distube
    .on("playSong", (queue, song) =>
       queue.textChannel.send({
@@ -18,9 +10,7 @@ client.distube
             new EmbedBuilder()
                .setColor("Aqua")
                .setDescription(
-                  `🎶 | Playing \`${song.name}\` - \`${
-                     song.formattedDuration
-                  }\`\nRequested by: ${song.user}\n${status(queue)}`
+                  `🎶 | Playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user}`
                ),
          ],
       })
@@ -42,9 +32,7 @@ client.distube
             new EmbedBuilder()
                .setColor("Aqua")
                .setDescription(
-                  `🎶 | Added \`${playlist.name}\` playlist (${
-                     playlist.songs.length
-                  } songs) to queue\n${status(queue)}`
+                  `🎶 | Added \`${playlist.name}\` playlist (${playlist.songs.length} songs) to queue`
                ),
          ],
       })
@@ -52,8 +40,8 @@ client.distube
    .on("error", (channel, e) => {
       if (channel) {
          channel.send(`⛔ | An error has occurred. Please try again later`);
-         console.error(e);
-      } else console.error(e);
+         term.red(e, "\n");
+      } else term.red(e, "\n");
    })
    .on("empty", (channel) =>
       channel.send({
