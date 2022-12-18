@@ -2,8 +2,6 @@ const {
    SlashCommandBuilder,
    PermissionFlagsBits,
    ChatInputCommandInteraction,
-   VoiceChannel,
-   GuildEmoji,
    EmbedBuilder,
 } = require("discord.js");
 const client = require("../../main");
@@ -12,6 +10,7 @@ module.exports = {
    data: new SlashCommandBuilder()
       .setName("music")
       .setDescription("Play and control music")
+      .setDefaultMemberPermissions(PermissionFlagsBits.SendMessages)
       .addSubcommand((subcommand) =>
          subcommand
             .setName("play")
@@ -38,7 +37,7 @@ module.exports = {
       )
       .addSubcommand((subcommand) =>
          subcommand
-            .setName("settings")
+            .setName("option")
             .setDescription("Select an option")
             .addStringOption((option) =>
                option
@@ -86,35 +85,39 @@ module.exports = {
                   textChannel: channel,
                   member: member,
                });
+
                return interaction.reply({
                   content: "🎵 Request received",
-                  ephemeral: true,
                });
             case "volume":
                client.distube.setVolume(voiceChannel, volume);
                return interaction.reply(`🔈Volume has been set to ${volume}%`);
-            case "settings":
+            case "option":
                const queue = await client.distube.getQueue(voiceChannel);
 
                if (!queue) return interaction.reply("There is no active queue");
 
                switch (option) {
                   case "queue":
-                     interaction.reply({
+                     return interaction.reply({
                         embeds: [
                            new EmbedBuilder()
                               .setColor("Aqua")
                               .setDescription(
-                                 `${queue.song.map(
+                                 `${queue.songs.map(
                                     (song, id) =>
-                                       `\n**${id + 1}.** ${song.name} - \`${
+                                       `\n**${id + 1}. \`${song.name}\` - \`${
                                           song.formattedDuration
-                                       }\``
+                                       }\`**`
                                  )}`
                               ),
                         ],
                      });
                   case "skip":
+                     if (queue.songs.length <= 1)
+                        return interaction.reply({
+                           content: "There is no up next song",
+                        });
                      await queue.skip(voiceChannel);
                      return interaction.reply("⏭️ The song has been skipped");
                   case "stop":

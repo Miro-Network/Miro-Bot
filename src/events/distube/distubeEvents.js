@@ -10,7 +10,7 @@ client.distube
             new EmbedBuilder()
                .setColor("Aqua")
                .setDescription(
-                  `🎶 | Playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user}`
+                  `🎶 | **Started playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user}**`
                ),
          ],
       })
@@ -21,7 +21,7 @@ client.distube
             new EmbedBuilder()
                .setColor("Aqua")
                .setDescription(
-                  `🎶 | Added ${song.name} - \`${song.formattedDuration}\` to the queue by ${song.user}`
+                  `🎶 | **Added \`${song.name}\` - \`${song.formattedDuration}\` to the queue by** ${song.user}`
                ),
          ],
       })
@@ -32,14 +32,14 @@ client.distube
             new EmbedBuilder()
                .setColor("Aqua")
                .setDescription(
-                  `🎶 | Added \`${playlist.name}\` playlist (${playlist.songs.length} songs) to queue`
+                  `🎶 | **Added \`${playlist.name}\` playlist (\`${playlist.songs.length} songs\`) to queue`
                ),
          ],
       })
    )
    .on("error", (channel, e) => {
       if (channel) {
-         channel.send(`⛔ | An error has occurred. Please try again later`);
+         channel.send(`⛔ | **An error has occurred. Please try again later**`);
          term.red(e, "\n");
       } else term.red(e, "\n");
    })
@@ -49,7 +49,7 @@ client.distube
             new EmbedBuilder()
                .setColor("Red")
                .setDescription(
-                  "⛔ |Voice channel is empty! Leaving the channel..."
+                  "⛔ | **Voice channel is empty! Leaving the channel...**"
                ),
          ],
       })
@@ -59,7 +59,7 @@ client.distube
          embeds: [
             new EmbedBuilder()
                .setColor("Red")
-               .setDescription("`⛔ | No result found for `${query}`!`"),
+               .setDescription("`⛔ | **No result found for `${query}`!**`"),
          ],
       })
    )
@@ -68,7 +68,7 @@ client.distube
          embeds: [
             new EmbedBuilder()
                .setColor("Aqua")
-               .setDescription("🏁 | Queue finished!"),
+               .setDescription("🏁 | **Queue finished!**"),
          ],
       })
    );

@@ -39,7 +39,7 @@ module.exports = {
             embeds: [
                new EmbedBuilder()
                   .setColor("Aqua")
-                  .setDescription(`Successfully turn off the slowmode`)
+                  .setDescription(`**Successfully turn off the slowmode**`)
 
                   .setTimestamp(),
             ],
@@ -55,7 +55,7 @@ module.exports = {
                new EmbedBuilder()
                   .setColor("Aqua")
                   .setDescription(
-                     `Successfully set the slowmode for this channel to \`${i}s\``
+                     `**Successfully set the slowmode for this channel to \`${i}s\`**`
                   )
                   .setTimestamp(),
             ],
@@ -69,7 +69,7 @@ module.exports = {
                new EmbedBuilder()
                   .setColor("Aqua")
                   .setDescription(
-                     `Successfully set the slowmode for this channel to \`${time}s\``
+                     `**Successfully set the slowmode for this channel to \`${time}s\`**`
                   )
                   .setTimestamp(),
             ],
@@ -85,7 +85,7 @@ module.exports = {
                new EmbedBuilder()
                   .setColor("Aqua")
                   .setDescription(
-                     `Successfully set the slowmode for this channel to \`${k}s\``
+                     `**Successfully set the slowmode for this channel to \`${k}s\`**`
                   )
                   .setTimestamp(),
             ],

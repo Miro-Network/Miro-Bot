@@ -49,7 +49,7 @@ module.exports = {
 
       await member.roles.remove(role);
       interaction.reply({
-         content: `Successfully removed \`@${role.name}\` from \`${member.user.name}\``,
+         content: `**Successfully removed \`@${role.name}\` from \`${member.user.name}\`**`,
       });
    },
 };

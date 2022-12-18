@@ -19,7 +19,7 @@ module.exports = {
             .setPosition(interaction.channel.position)
             .then(interaction.channel.delete());
 
-         channel.send(`Nuked by \`${interaction.user.tag}\``);
+         channel.send(`**Nuked by \`${interaction.user.tag}\`**`);
       });
    },
 };

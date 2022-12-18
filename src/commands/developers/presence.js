@@ -102,7 +102,7 @@ module.exports = {
          }
 
          interaction.reply({
-            content: "Successfully changed the presence",
+            content: "**Successfully changed the presence**",
             ephemeral: true,
          });
 

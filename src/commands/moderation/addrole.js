@@ -49,7 +49,7 @@ module.exports = {
 
       await member.roles.add(role);
       interaction.reply({
-         content: `Successfully added \`@${role.name}\` to \`${member.user.name}\``,
+         content: `**Successfully added \`@${role.name}\` to \`${member.user.name}\``,
       });
    },
 };
