@@ -16,6 +16,8 @@ const client = new Client({
    partials: [Object.keys(Partials)],
 });
 
+const app = express();
+
 client.commands = new Collection();
 client.distube = new DisTube(client, {
    emitNewSongOnly: true,
@@ -25,18 +27,17 @@ client.distube = new DisTube(client, {
 
 client.config = require("./config");
 
-const app = express();
+const encodedToken = Buffer.from(client.config.token, "base64");
+const decodedToken = encodedToken.toString("utf-8");
+
+await client.login(decodedToken).then(() => {
+   loadEvents(client);
+   loadCommands(client);
+});
+
 app.get("/", (req, res) => res.send("Online!"));
 app.listen(client.config.port, () =>
    console.log(`Listening on http://localhost:${client.config.port}`)
 );
-
-const encodedToken = Buffer.from(client.config.token, "base64");
-const decodedToken = encodedToken.toString("utf-8");
-
-client.login(decodedToken).then(() => {
-   loadEvents(client);
-   loadCommands(client);
-});
 
 module.exports = client;
