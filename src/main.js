@@ -4,6 +4,7 @@ const {
    Partials,
    Collection,
 } = require("discord.js");
+const express = require("express");
 const { DisTube } = require("distube");
 const { SpotifyPlugin } = require("@distube/spotify");
 const { loadEvents } = require("./handlers/events");
@@ -23,6 +24,12 @@ client.distube = new DisTube(client, {
 });
 
 client.config = require("./config");
+
+const app = express();
+app.get("/", (req, res) => res.send("Online!"));
+app.listen(client.config.port, () =>
+   console.log(`Listening on http://localhost:${client.config.port}`)
+);
 
 const encodedToken = Buffer.from(client.config.token, "base64");
 const decodedToken = encodedToken.toString("utf-8");
