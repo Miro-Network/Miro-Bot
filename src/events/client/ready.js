@@ -10,6 +10,9 @@ module.exports = {
     * @param {Client} client
     */
    async execute(client) {
+      if (client.config.mongoDB === "")
+         return term.red("> [DATABASE] | No database url given, skipped\n");
+
       await mongoose.connect(client.config.mongoDB || "", {
          keepAlive: true,
       });
