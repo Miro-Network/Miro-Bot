@@ -1,5 +1,5 @@
 {
-   "name": "wickie",
+   "name": "miro-bot",
    "version": "1.0.0",
    "description": "",
    "main": "./src/main.js",
@@ -9,14 +9,14 @@
    },
    "repository": {
       "type": "git",
-      "url": "git+https://github.com/phucho0237/wickie.git"
+      "url": "git+https://github.com/Miro-Network/Miro-Bot.git"
    },
-   "author": "Nhu Phuc",
+   "author": "Miro Network <miro@mironetwork.com>",
    "license": "MIT",
    "bugs": {
-      "url": "https://github.com/phucho0237/wickie/issues"
+      "url": "https://github.com/Miro-Network/Miro-Bot/issues"
    },
-   "homepage": "https://github.com/phucho0237/wickie#readme",
+   "homepage": "https://github.com/Miro-Network/Miro-Bot.git#readme",
    "dependencies": {
       "@discordjs/voice": "^0.14.0",
       "@distube/spotify": "^1.4.5",
