@@ -29,7 +29,7 @@ module.exports = {
                   )
                   .addFields({
                      name: "Invite me",
-                     value: `[Click here](https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot%20applications.commands) to invite me to your server right now!!`,
+                     value: `[Click here](https://discord.com/oauth2/authorize?client_id=${client.user.id}&scope=bot%20applications.commands&permissions=1099511627767) to invite me to your server right now!!`,
                   }),
             ],
          });

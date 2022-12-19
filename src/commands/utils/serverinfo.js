@@ -56,10 +56,7 @@ module.exports = {
                      name: "Created At",
                      value: `<t:${parseInt(
                         guild.createdTimestamp / 1000
-                     )}:R> (<t:${(
-                        Date.now() / 1000 -
-                        client.uptime / 1000
-                     ).toFixed(0)}>)`,
+                     )}:R>`,
                      inline: true,
                   },
                   {
