@@ -21,6 +21,7 @@
       "@discordjs/voice": "^0.14.0",
       "@distube/spotify": "^1.4.5",
       "ascii-table": "^0.0.9",
+      "discord-giveaways": "^6.0.1",
       "discord.js": "^14.7.0",
       "distube": "^4.0.3",
       "dotenv": "^16.0.3",

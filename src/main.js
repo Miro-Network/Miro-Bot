@@ -20,14 +20,18 @@ const client = new Client({
 const app = express();
 
 client.commands = new Collection();
+client.config = require("./config");
 client.distube = new DisTube(client, {
    emitNewSongOnly: true,
    emitAddSongWhenCreatingQueue: false,
    joinNewVoiceChannel: false,
    plugins: [new SpotifyPlugin()],
 });
+client.giveawayConfig = require("./config/giveawayConfig");
 
-client.config = require("./config");
+["giveawaysManager", "giveawaysEventsHandler"].forEach((x) =>
+   require(`./utils/${x}`)
+);
 
 const encodedToken = Buffer.from(client.config.token, "base64");
 const decodedToken = encodedToken.toString("utf-8");
@@ -38,7 +42,9 @@ client.login(decodedToken).then(() => {
 
    app.get("/", (req, res) => res.send("Online!"));
    app.listen(client.config.port, () =>
-      term.cyan(`[WEB] | Listening on http://localhost:${client.config.port}\n`)
+      term.cyan(
+         `> [WEB] | Listening on http://localhost:${client.config.port}\n`
+      )
    );
 });
 
