@@ -20,8 +20,6 @@ module.exports = {
          if (mongoose.connect)
             term.cyan("> [DATABASE] | Successfully connected to database\n");
       } catch (err) {
-         if (!mongoose.connect)
-            term.red("> [DATABASE] | Database connection is not establish\n");
          term.red(err, "\n");
       }
 
