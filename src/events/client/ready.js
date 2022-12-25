@@ -13,11 +13,17 @@ module.exports = {
       if (client.config.mongoDB === "")
          return term.red("> [DATABASE] | No database url given, skipped\n");
 
-      await mongoose.connect(client.config.mongoDB || "", {
-         keepAlive: true,
-      });
-      if (mongoose.connect)
-         term.cyan("> [DATABASE] | Successfully connected to database\n");
+      try {
+         await mongoose.connect(client.config.mongoDB || "", {
+            keepAlive: true,
+         });
+         if (mongoose.connect)
+            term.cyan("> [DATABASE] | Successfully connected to database\n");
+      } catch (err) {
+         if (!mongoose.connect)
+            term.red("> [DATABASE] | Database connection is not establish\n");
+         term.red(err, "\n");
+      }
 
       term.cyan(`> [CLIENT] | Logged in as ${client.user.tag}\n`);
    },
