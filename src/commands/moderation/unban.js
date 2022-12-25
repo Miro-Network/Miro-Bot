@@ -4,6 +4,7 @@ const {
    ChatInputCommandInteraction,
    EmbedBuilder,
 } = require("discord.js");
+let term = require("terminal-kit").terminal;
 
 module.exports = {
    data: new SlashCommandBuilder()
@@ -54,7 +55,12 @@ module.exports = {
             ],
          });
       } catch (err) {
-         console.error(err);
+         interaction.reply({
+            content:
+               "There was a problem when executing this command. Please try again later",
+            ephemeral: true,
+         });
+         term.red(err, "\n");
       }
    },
 };

@@ -4,6 +4,7 @@ const {
    ChatInputCommandInteraction,
    EmbedBuilder,
 } = require("discord.js");
+let term = require("terminal-kit").terminal;
 
 module.exports = {
    data: new SlashCommandBuilder()
@@ -43,34 +44,43 @@ module.exports = {
 
       const res = new EmbedBuilder().setColor("Aqua");
 
-      if (target) {
-         let i = 0;
-         const filtered = [];
+      try {
+         if (target) {
+            let i = 0;
+            const filtered = [];
 
-         (await messages).filter((msg) => {
-            if (msg.author.id === target.id && amount > i) {
-               filtered.push(msg);
-               i++;
-            }
-         });
+            (await messages).filter((msg) => {
+               if (msg.author.id === target.id && amount > i) {
+                  filtered.push(msg);
+                  i++;
+               }
+            });
 
-         await channel.bulkDelete(filtered).then((messages) => {
-            res.setDescription(
-               `**Successfully deleted \`${messages.size} message(s)\` from** ${target}`
-            ).setTimestamp();
-            interaction.reply({
-               embeds: [res],
+            await channel.bulkDelete(filtered).then((messages) => {
+               res.setDescription(
+                  `**Successfully deleted \`${messages.size} message(s)\` from** ${target}`
+               ).setTimestamp();
+               interaction.reply({
+                  embeds: [res],
+               });
             });
-         });
-      } else {
-         await channel.bulkDelete(amount, true).then((messages) => {
-            res.setDescription(
-               `**Successfully deleted \`${messages.size} message(s)\` from the channel**`
-            ).setTimestamp();
-            interaction.reply({
-               embeds: [res],
+         } else {
+            await channel.bulkDelete(amount, true).then((messages) => {
+               res.setDescription(
+                  `**Successfully deleted \`${messages.size} message(s)\` from the channel**`
+               ).setTimestamp();
+               interaction.reply({
+                  embeds: [res],
+               });
             });
+         }
+      } catch (err) {
+         interaction.reply({
+            content:
+               "There was a problem when executing this command. Please try again later",
+            ephemeral: true,
          });
+         term.red(err, "\n");
       }
    },
 };

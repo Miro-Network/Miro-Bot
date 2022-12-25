@@ -4,6 +4,7 @@ const {
    ChatInputCommandInteraction,
    EmbedBuilder,
 } = require("discord.js");
+let term = require("terminal-kit").terminal;
 
 module.exports = {
    data: new SlashCommandBuilder()
@@ -40,21 +41,30 @@ module.exports = {
             ephemeral: true,
          });
 
-      await member.ban({ reason });
-      await interaction.reply({
-         embeds: [
-            new EmbedBuilder()
-               .setColor("Aqua")
-               .setTitle("💥 Moderation Execution")
-               .setDescription(`Successfully banned \`${user.tag}\``)
-               .setThumbnail(user.displayAvatarURL({ extension: "png" }))
-               .addFields({
-                  name: "Reason:",
-                  value: `\`${reason}\``,
-                  inline: true,
-               })
-               .setTimestamp(),
-         ],
-      });
+      try {
+         await member.ban({ reason });
+         await interaction.reply({
+            embeds: [
+               new EmbedBuilder()
+                  .setColor("Aqua")
+                  .setTitle("💥 Moderation Execution")
+                  .setDescription(`Successfully banned \`${user.tag}\``)
+                  .setThumbnail(user.displayAvatarURL({ extension: "png" }))
+                  .addFields({
+                     name: "Reason:",
+                     value: `\`${reason}\``,
+                     inline: true,
+                  })
+                  .setTimestamp(),
+            ],
+         });
+      } catch (err) {
+         interaction.reply({
+            content:
+               "There was a problem when executing this command. Please try again later",
+            ephemeral: true,
+         });
+         term.red(err, "\n");
+      }
    },
 };

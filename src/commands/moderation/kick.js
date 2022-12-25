@@ -4,6 +4,7 @@ const {
    EmbedBuilder,
    ChatInputCommandInteraction,
 } = require("discord.js");
+let term = require("terminal-kit").terminal;
 
 module.exports = {
    data: new SlashCommandBuilder()
@@ -40,21 +41,30 @@ module.exports = {
             ephemeral: true,
          });
 
-      await member.kick(reason);
-      await interaction.reply({
-         embeds: [
-            new EmbedBuilder()
-               .setColor("Aqua")
-               .setTitle("💥 Moderation Execution")
-               .setDescription(`Successfully kicked \`${user.tag}\``)
-               .setThumbnail(user.displayAvatarURL({ extension: "png" }))
-               .addFields({
-                  name: "Reason:",
-                  value: `\`${reason}\``,
-                  inline: true,
-               })
-               .setTimestamp(),
-         ],
-      });
+      try {
+         await member.kick(reason);
+         await interaction.reply({
+            embeds: [
+               new EmbedBuilder()
+                  .setColor("Aqua")
+                  .setTitle("💥 Moderation Execution")
+                  .setDescription(`Successfully kicked \`${user.tag}\``)
+                  .setThumbnail(user.displayAvatarURL({ extension: "png" }))
+                  .addFields({
+                     name: "Reason:",
+                     value: `\`${reason}\``,
+                     inline: true,
+                  })
+                  .setTimestamp(),
+            ],
+         });
+      } catch (err) {
+         interaction.reply({
+            content:
+               "There was a problem when executing this command. Please try again later",
+            ephemeral: true,
+         });
+         term.red(err, "\n");
+      }
    },
 };

@@ -3,6 +3,7 @@ const {
    PermissionFlagsBits,
    ChatInputCommandInteraction,
 } = require("discord.js");
+let term = require("terminal-kit").terminal;
 
 module.exports = {
    data: new SlashCommandBuilder()
@@ -47,9 +48,18 @@ module.exports = {
             ephemeral: true,
          });
 
-      await member.roles.add(role);
-      interaction.reply({
-         content: `**Successfully added \`@${role.name}\` to \`${member.user.name}\``,
-      });
+      try {
+         await member.roles.add(role);
+         interaction.reply({
+            content: `**Successfully added \`@${role.name}\` to \`${member.user.name}\``,
+         });
+      } catch (err) {
+         interaction.reply({
+            content:
+               "There was a problem when executing this command. Please try again later",
+            ephemeral: true,
+         });
+         term.red(err, "\n");
+      }
    },
 };

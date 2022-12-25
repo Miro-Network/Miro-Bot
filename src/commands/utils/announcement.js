@@ -6,6 +6,7 @@ const {
    EmbedBuilder,
    ChannelType,
 } = require("discord.js");
+let term = require("terminal-kit").terminal;
 
 module.exports = {
    data: new SlashCommandBuilder()
@@ -48,9 +49,6 @@ module.exports = {
          });
 
       if (role) {
-         // await channel.send({
-         //    content: `**New announcement from \`${interaction.user.tag}\`\n${role}**`,
-         // });
          await channel.send({
             content: `-> ${role}`,
          });
