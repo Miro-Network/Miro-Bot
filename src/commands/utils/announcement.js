@@ -11,7 +11,7 @@ module.exports = {
    data: new SlashCommandBuilder()
       .setName("announcement")
       .setDescription("Send the announcement to channel")
-      .setDefaultMemberPermissions(PermissionFlagsBits.SendMessages)
+      .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
       .addChannelOption((option) =>
          option
             .setName("channel")
