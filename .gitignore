@@ -34,3 +34,6 @@ jspm_packages/
 # lock file
 package-lock.json
 yarn.lock
+
+# vscode config
+.vscode
