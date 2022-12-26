@@ -38,7 +38,7 @@ client.login(decodedToken).then(() => {
 
    app.get("/", (req, res) => res.send("Online!"));
    app.listen(client.config.port, () =>
-      term.cyan(`[WEB] | Listening on http://localhost:${client.config.port}\n`)
+      term.cyan(`> [WEB] | Listening on http://localhost:${client.config.port}\n`)
    );
 });
 
