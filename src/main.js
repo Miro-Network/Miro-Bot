@@ -26,10 +26,7 @@ client.distube = new DisTube(client, {
 });
 client.config = require("./config");
 
-const encodedToken = Buffer.from(client.config.token, "base64");
-const decodedToken = encodedToken.toString("utf-8");
-
-client.login(decodedToken).then(() => {
+client.login(client.config.tokens).then(() => {
    // loadEvents(client);
    // loadCommands(client);
 
