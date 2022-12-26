@@ -17,8 +17,6 @@ const client = new Client({
    partials: [Object.keys(Partials)],
 });
 
-const app = express();
-
 client.commands = new Collection();
 client.distube = new DisTube(client, {
    emitNewSongOnly: true,
@@ -26,19 +24,21 @@ client.distube = new DisTube(client, {
    joinNewVoiceChannel: false,
    plugins: [new SpotifyPlugin()],
 });
-
 client.config = require("./config");
 
 const encodedToken = Buffer.from(client.config.token, "base64");
 const decodedToken = encodedToken.toString("utf-8");
 
 client.login(decodedToken).then(() => {
-   loadEvents(client);
-   loadCommands(client);
+   // loadEvents(client);
+   // loadCommands(client);
 
+   const app = express();
    app.get("/", (req, res) => res.send("Online!"));
    app.listen(client.config.port, () =>
-      term.cyan(`> [WEB] | Listening on http://localhost:${client.config.port}\n`)
+      term.cyan(
+         `> [WEB] | Listening on http://localhost:${client.config.port}\n`
+      )
    );
 });
 
