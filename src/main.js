@@ -26,9 +26,9 @@ client.distube = new DisTube(client, {
 });
 client.config = require("./config");
 
-client.login(client.config.tokens).then(() => {
-   // loadEvents(client);
-   // loadCommands(client);
+client.login(client.config.token).then(() => {
+   loadEvents(client);
+   loadCommands(client);
 
    const app = express();
    app.get("/", (req, res) => res.send("Online!"));

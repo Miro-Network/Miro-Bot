@@ -14,6 +14,7 @@ module.exports = {
          return term.red("> [DATABASE] | No database url given, skipped\n");
 
       try {
+         mongoose.set("strictQuery", false);
          await mongoose.connect(client.config.mongoDB || "", {
             keepAlive: true,
          });
