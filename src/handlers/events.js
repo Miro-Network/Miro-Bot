@@ -1,6 +1,7 @@
+const ascii = require("ascii-table");
+const fs = require("node:fs");
+
 function loadEvents(client) {
-   const ascii = require("ascii-table");
-   const fs = require("node:fs");
    const table = new ascii().setHeading("Events", "Status");
 
    const folders = fs.readdirSync("./src/events");
@@ -33,7 +34,6 @@ function loadEvents(client) {
                );
          }
          table.addRow(file, "✅");
-         // continue;
       }
    }
    return console.log(table.toString());

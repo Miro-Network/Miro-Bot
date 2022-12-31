@@ -1,9 +1,7 @@
-const { table } = require("node:console");
+const ascii = require("ascii-table");
+const fs = require("node:fs");
 
 function loadCommands(client) {
-   const ascii = require("ascii-table");
-   const fs = require("node:fs");
-
    const table = new ascii().setHeading("Commands", "Status");
 
    let commandsArray = [];
@@ -20,7 +18,6 @@ function loadCommands(client) {
          commandsArray.push(commandFile.data.toJSON());
 
          table.addRow(file, "✅");
-         // continue;
       }
    }
 

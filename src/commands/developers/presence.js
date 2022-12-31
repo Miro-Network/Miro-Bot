@@ -10,7 +10,7 @@ let term = require("terminal-kit").terminal;
 module.exports = {
    data: new SlashCommandBuilder()
       .setName("presence")
-      .setDescription("Change the bot presence")
+      .setDescription("Change the bot presence (dev only)")
       .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
       .addStringOption((option) =>
          option
@@ -49,11 +49,12 @@ module.exports = {
     * @param {Client} client
     */
    async execute(interaction, client) {
-      const { options } = interaction;
+      const { options, user } = interaction;
       const activity = options.getString("activity");
       const activityName = options.getString("activityname");
       const status = options.getString("status");
-      if (interaction.user.id !== "695449735343112259")
+
+      if (user.id !== "695449735343112259")
          return interaction.reply({
             content: "You need to be developer to use this command",
             ephemeral: true,
@@ -110,7 +111,7 @@ module.exports = {
             `> [CLIENT] | Presence update:\n- Activity type: ${activity}\n- Activity name: ${activityName}\n- Status: ${status}\n`
          );
       } catch (err) {
-         console.error(err);
+         term.red(err, "\n");
       }
    },
 };
