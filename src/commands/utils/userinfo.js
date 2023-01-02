@@ -49,12 +49,12 @@ module.exports = {
                   },
                   {
                      name: "Created At:",
-                     value: `<t:${parseInt(member.user.createdAt / 1000)}:R>`,
+                     value: `<t:${parseInt(member.user.createdAt / 1000)}:f>`,
                      inline: true,
                   },
                   {
                      name: "Joined At:",
-                     value: `<t:${parseInt(member.joinedAt / 1000)}:R>`,
+                     value: `<t:${parseInt(member.joinedAt / 1000)}:f>`,
                      inline: true,
                   }
                )
