@@ -5,8 +5,7 @@
    "main": "./src/main.js",
    "scripts": {
       "start": "node .",
-      "dev": "nodemon",
-      "web": "cd ./src/website && npm run dev"
+      "dev": "nodemon"
    },
    "repository": {
       "type": "git",

@@ -15,8 +15,10 @@ module.exports = {
     * @param {ChatInputCommandInteraction} interaction
     */
    async execute(interaction) {
+      const { channel } = interaction;
+
       try {
-         await interaction.channel.clone().then((channel) => {
+         await channel.clone().then((channel) => {
             channel
                .setPosition(interaction.channel.position)
                .then(interaction.channel.delete());

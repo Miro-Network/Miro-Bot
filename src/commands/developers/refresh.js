@@ -38,7 +38,7 @@ module.exports = {
             ephemeral: true,
          });
       } catch (err) {
-         console.error(err);
+         term.red(err, "\n");
       }
    },
 };

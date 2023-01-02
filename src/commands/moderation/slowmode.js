@@ -24,7 +24,7 @@ module.exports = {
     * @param {ChatInputCommandInteraction} interaction
     */
    async execute(interaction) {
-      const { options } = interaction;
+      const { options, channel } = interaction;
       const time = options.getString("time");
 
       const millisecond = ms(time);
@@ -36,7 +36,7 @@ module.exports = {
 
       try {
          if (time === "0s" || time === "0") {
-            await interaction.channel.setRateLimitPerUser(0);
+            await channel.setRateLimitPerUser(0);
             return interaction.reply({
                embeds: [
                   new EmbedBuilder()
@@ -51,7 +51,7 @@ module.exports = {
          if (time.startsWith("-") && time.endsWith("s")) {
             i = Math.abs(time.slice(0, -1));
 
-            await interaction.channel.setRateLimitPerUser(i);
+            await channel.setRateLimitPerUser(i);
             return interaction.reply({
                embeds: [
                   new EmbedBuilder()
@@ -65,7 +65,7 @@ module.exports = {
          }
 
          if (!time.endsWith("s") && !time.startsWith("-")) {
-            await interaction.channel.setRateLimitPerUser(ms(time));
+            await channel.setRateLimitPerUser(ms(time));
             return interaction.reply({
                embeds: [
                   new EmbedBuilder()
@@ -81,7 +81,7 @@ module.exports = {
          if (!time.endsWith("s") && time.startsWith("-")) {
             k = Math.abs(time);
 
-            await interaction.channel.setRateLimitPerUser(k);
+            await channel.setRateLimitPerUser(k);
             return interaction.reply({
                embeds: [
                   new EmbedBuilder()
@@ -94,7 +94,7 @@ module.exports = {
             });
          }
 
-         await interaction.channel.setRateLimitPerUser(millisecond / 1000);
+         await channel.setRateLimitPerUser(millisecond / 1000);
          return interaction.reply({
             embeds: [
                new EmbedBuilder()

@@ -48,43 +48,52 @@ module.exports = {
             ephemeral: true,
          });
 
-      if (role) {
-         await channel.send({
-            content: `-> ${role}`,
-         });
-         await channel.send({
-            embeds: [
-               new EmbedBuilder()
-                  .setColor("Aqua")
-                  .setTitle("📢 Announcement")
-                  .setDescription(`${content}`)
-                  .setFooter({
-                     text: `Announcement from ${interaction.user.tag}`,
-                  })
-                  .setTimestamp(),
-            ],
-         });
-         return interaction.reply({
-            content: `Successfully send the announcement to ${channel}`,
+      try {
+         if (role) {
+            await channel.send({
+               content: `-> ${role}`,
+            });
+            await channel.send({
+               embeds: [
+                  new EmbedBuilder()
+                     .setColor("Aqua")
+                     .setTitle("📢 Announcement")
+                     .setDescription(`${content}`)
+                     .setFooter({
+                        text: `Announcement from ${interaction.user.tag}`,
+                     })
+                     .setTimestamp(),
+               ],
+            });
+            return interaction.reply({
+               content: `Successfully send the announcement to ${channel}`,
+               ephemeral: true,
+            });
+         } else {
+            await channel.send({
+               embeds: [
+                  new EmbedBuilder()
+                     .setColor("Aqua")
+                     .setTitle("📢 New Announcement")
+                     .setDescription(`${content}`)
+                     .setFooter({
+                        text: `Announcement from ${interaction.user.tag}`,
+                     })
+                     .setTimestamp(),
+               ],
+            });
+            return interaction.reply({
+               content: `Successfully send the announcement to ${channel}`,
+               ephemeral: true,
+            });
+         }
+      } catch (err) {
+         interaction.reply({
+            content:
+               "There was a problem when executing this command. Please try again later",
             ephemeral: true,
          });
-      } else {
-         await channel.send({
-            embeds: [
-               new EmbedBuilder()
-                  .setColor("Aqua")
-                  .setTitle("📢 New Announcement")
-                  .setDescription(`${content}`)
-                  .setFooter({
-                     text: `Announcement from ${interaction.user.tag}`,
-                  })
-                  .setTimestamp(),
-            ],
-         });
-         return interaction.reply({
-            content: `Successfully send the announcement to ${channel}`,
-            ephemeral: true,
-         });
+         term.red(err, "\n");
       }
    },
 };
