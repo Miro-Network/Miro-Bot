@@ -11,7 +11,15 @@ function loadClient() {
 
    const client = new Client({
       allowedMentions: { parse: ["users", "roles"], repliedUser: true },
-      intents: [Object.keys(GatewayIntentBits)],
+      intents: [
+         GatewayIntentBits.Guilds,
+         GatewayIntentBits.GuildMembers,
+         GatewayIntentBits.GuildBans,
+         GatewayIntentBits.GuildMessages,
+         GatewayIntentBits.GuildMessageReactions,
+         GatewayIntentBits.DirectMessages,
+         GatewayIntentBits.DirectMessageReactions,
+      ],
       partials: [Object.keys(Partials)],
    });
 

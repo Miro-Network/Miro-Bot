@@ -2,9 +2,13 @@ const {
    SlashCommandBuilder,
    PermissionFlagsBits,
    ChatInputCommandInteraction,
+   ChannelType,
    EmbedBuilder,
+   GuildExplicitContentFilter,
+   GuildNSFWLevel,
+   GuildVerificationLevel,
 } = require("discord.js");
-const wait = require("node:timers/promises").setTimeout;
+let term = require("terminal-kit").terminal;
 
 module.exports = {
    data: new SlashCommandBuilder()
@@ -14,73 +18,196 @@ module.exports = {
    /**
     *
     * @param {ChatInputCommandInteraction} interaction
-    * @param {Client} client
     */
-   async execute(interaction, client) {
+   async execute(interaction) {
       const { guild } = interaction;
 
-      let owner = await interaction.guild.members.fetch(guild.ownerId);
+      const sortedRoles = guild.roles.cache
+         .map((r) => r)
+         .slice(1, guild.roles.cache.size)
+         .sort((a, b) => b.position - a.position);
+      const userRoles = sortedRoles.filter((r) => !r.managed);
+      const manageRoles = sortedRoles.filter((r) => r.managed);
 
-      await interaction.deferReply();
-      await wait(2000);
+      await guild.members.fetch();
+      const botCount = guild.members.cache.filter((m) => m.user.bot).size;
 
-      interaction.editReply({
-         embeds: [
-            new EmbedBuilder()
-               .setColor("Aqua")
-               .setTitle("Server Information")
-               .setThumbnail(guild.iconURL())
-               .setTimestamp()
-               .addFields(
-                  {
-                     name: "Server Name",
-                     value: `\`${guild.name}\``,
-                     inline: true,
-                  },
-                  {
-                     name: "Server ID",
-                     value: `\`${guild.id}\``,
-                     inline: true,
-                  },
-                  {
-                     name: "Total Members",
-                     value: `\`${guild.memberCount}\``,
-                     inline: true,
-                  },
-                  {
-                     name: "Owner",
-                     value: `\`${owner.user.tag}\``,
-                     inline: true,
-                  },
-                  {
-                     name: "Created At",
-                     value: `<t:${parseInt(
-                        guild.createdTimestamp / 1000
-                     )}:R>`,
-                     inline: true,
-                  },
-                  {
-                     name: "Role Count",
-                     value: `\`${guild.roles.cache.size}\``,
-                     inline: true,
-                  },
-                  {
-                     name: "Channel Count",
-                     value: `\`${guild.channels.cache.size}\``,
-                     inline: true,
-                  },
-                  {
-                     name: "Emoji Count",
-                     value: `\`${guild.emojis.cache.size}\``,
-                     inline: true,
-                  },
-                  {
-                     name: "Boost Count",
-                     value: `\`${guild.premiumSubscriptionCount || "0"}\``,
-                     inline: true,
-                  }
-               ),
-         ],
-      });
+      const maxDisplayRoles = (roles, maxFieldLength = 1024) => {
+         let totalLength = 0;
+         const result = [];
+
+         for (const role of roles) {
+            const roleString = `<@&${role.id}>`;
+
+            if (roleString.length + totalLength > maxFieldLength) break;
+
+            totalLength += roleString.length + 1;
+            result.push(roleString);
+         }
+
+         return result.length;
+      };
+
+      const splitPascal = (str, separator) =>
+         str.split(/(?=[A-U])/).join(separator);
+      const toPascalCase = (str, separator = false) => {
+         const pascal =
+            str.charAt(0).toUpperCase() +
+            str
+               .slice(1)
+               .toLowerCase()
+               .replace(/[^a-zA-Z0-9]+(.)/g, (match, chr) => chr.toUpperCase());
+         return separator ? splitPascal(pascal, separator) : pascal;
+      };
+
+      const getChannelTypeSize = (type) =>
+         guild.channels.cache.filter((c) => type.includes(c.type)).size;
+      const totalChannel = getChannelTypeSize([
+         ChannelType.GuildText,
+         ChannelType.GuildAnnouncement,
+         ChannelType.GuildVoice,
+         ChannelType.GuildStageVoice,
+         ChannelType.GuildForum,
+         ChannelType.GuildCategory,
+      ]);
+
+      let owner = await guild.fetchOwner();
+
+      try {
+         interaction.reply({
+            embeds: [
+               new EmbedBuilder()
+                  .setColor("Aqua")
+                  .setTitle(`${guild.name}'s information`)
+                  .setThumbnail(guild.iconURL({ size: 1024 }))
+                  .addFields(
+                     {
+                        name: "· Description:",
+                        value: `🠚 *${guild.description || "None"}*`,
+                     },
+                     {
+                        name: "· General:",
+                        value: [
+                           `🠚 *ID: ${guild.id}*`,
+                           `🠚 *Owner: <@${owner.id}>*`,
+                           `🠚 *Created At:* <t:${parseInt(
+                              guild.createdTimestamp / 1000
+                           )}:f>`,
+                           `🠚 *Language: ${new Intl.DisplayNames(["en"], {
+                              type: "language",
+                           }).of(guild.preferredLocale)}*`,
+                           `🠚 *Vanity URL: ${guild.vanityURLCode || "None"}*`,
+                        ].join("\n"),
+                     },
+                     {
+                        name: "· Security:",
+                        value: [
+                           `🠚 *Explicit Filter: ${splitPascal(
+                              GuildExplicitContentFilter[
+                                 guild.explicitContentFilter
+                              ],
+                              " "
+                           )}*`,
+                           `🠚 *NSFW Level: ${splitPascal(
+                              GuildNSFWLevel[guild.nsfwLevel],
+                              " "
+                           )}*`,
+                           `🠚 *Verification Level: ${splitPascal(
+                              GuildVerificationLevel[guild.verificationLevel],
+                              ""
+                           )}*`,
+                        ].join("\n"),
+                        inline: true,
+                     },
+                     {
+                        name: `· Member (${guild.memberCount}):`,
+                        value: [
+                           `🠚 *Users: ${guild.memberCount - botCount}*`,
+                           `🠚 *Bots: ${botCount}*`,
+                        ].join("\n"),
+                        inline: true,
+                     },
+                     {
+                        name: `· User roles (${maxDisplayRoles(userRoles)} of ${
+                           userRoles.length
+                        }):`,
+                        value: `${
+                           userRoles
+                              .slice(0, maxDisplayRoles(userRoles))
+                              .join(" ") || "None"
+                        }`,
+                     },
+                     {
+                        name: `· Bot roles (${maxDisplayRoles(
+                           manageRoles
+                        )} of ${manageRoles.length}):`,
+                        value: `${
+                           manageRoles
+                              .slice(0, maxDisplayRoles(manageRoles))
+                              .join(" ") || "None"
+                        }`,
+                     },
+                     {
+                        name: `· Channel (${totalChannel}):`,
+                        value: [
+                           `🠚 *Text channels: ${getChannelTypeSize([
+                              ChannelType.GuildText,
+                              ChannelType.GuildForum,
+                              ChannelType.GuildAnnouncement,
+                           ])}*`,
+                           `🠚 *Voice channels: ${getChannelTypeSize([
+                              ChannelType.GuildVoice,
+                              ChannelType.GuildStageVoice,
+                           ])}*`,
+                           `🠚 *Categories: ${getChannelTypeSize([
+                              ChannelType.GuildCategory,
+                           ])}*`,
+                        ].join("\n"),
+                        inline: true,
+                     },
+                     {
+                        name: `· Emoji & Sticker (${
+                           guild.emojis.cache.size + guild.stickers.cache.size
+                        }):`,
+                        value: [
+                           `🠚 *Animated: ${
+                              guild.emojis.cache.filter((e) => e.animated).size
+                           }*`,
+                           `🠚 *Static: ${
+                              guild.emojis.cache.filter((e) => !e.animated).size
+                           }*`,
+                           `🠚 *Sticker: ${guild.stickers.cache.size}*`,
+                        ].join("\n"),
+                        inline: true,
+                     },
+                     {
+                        name: "· Nitro:",
+                        value: [
+                           `🠚 *Level: ${guild.premiumTier}*`,
+                           `🠚 *Boost count: ${guild.premiumSubscriptionCount}*`,
+                           `🠚 *Boosters: ${
+                              guild.members.cache.filter(
+                                 (m) => m.roles.premiumSubscriberRole
+                              ).size
+                           }*`,
+                        ].join("\n"),
+                        inline: true,
+                     },
+                     {
+                        name: "· Banner:",
+                        value: guild.bannerURL() ? " " : "🠚 *None*",
+                     }
+                  )
+                  .setTimestamp(),
+            ],
+         });
+      } catch (err) {
+         interaction.reply({
+            content:
+               "There was a problem when executing this command. Please try again later",
+            ephemeral: true,
+         });
+         term.red(err, "\n");
+      }
    },
 };

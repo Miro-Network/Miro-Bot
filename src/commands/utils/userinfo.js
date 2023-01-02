@@ -8,7 +8,7 @@ const {
 module.exports = {
    data: new SlashCommandBuilder()
       .setName("userinfo")
-      .setDescription("Check the info of the user")
+      .setDescription("Return the user info")
       .setDefaultMemberPermissions(PermissionFlagsBits.SendMessages)
       .addUserOption((option) =>
          option
@@ -34,27 +34,27 @@ module.exports = {
                .setThumbnail(user.displayAvatarURL())
                .addFields(
                   {
-                     name: "Name:",
-                     value: `\`${user.username}\``,
+                     name: "· Name:",
+                     value: `🠚 *${user.username}*`,
                      inline: false,
                   },
                   {
-                     name: "ID:",
-                     value: `\`${user.id}\``,
+                     name: "· ID:",
+                     value: `🠚 *${user.id}*`,
                   },
                   {
-                     name: "Roles:",
-                     value: `${member.roles.cache.map((r) => r).join(` `)}`,
+                     name: "· Roles:",
+                     value: `🠚 ${member.roles.cache.map((r) => r).join(` `)}`,
                      inline: false,
                   },
                   {
-                     name: "Created At:",
-                     value: `<t:${parseInt(member.user.createdAt / 1000)}:f>`,
+                     name: "· Created At:",
+                     value: `🠚 <t:${parseInt(member.user.createdAt / 1000)}:f>`,
                      inline: true,
                   },
                   {
-                     name: "Joined At:",
-                     value: `<t:${parseInt(member.joinedAt / 1000)}:f>`,
+                     name: "· Joined At:",
+                     value: `🠚 <t:${parseInt(member.joinedAt / 1000)}:f>`,
                      inline: true,
                   }
                )
