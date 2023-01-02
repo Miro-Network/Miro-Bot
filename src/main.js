@@ -1,23 +1,19 @@
-// const express = require("express");
-// const path = require("path");
+const express = require("express");
 
-// const config = require("./config");
-
+const config = require("./config");
 const { loadClient } = require("./miro");
 
-// let term = require("terminal-kit").terminal;
+let term = require("terminal-kit").terminal;
 
-// const app = express();
-// const http = require("http").Server(app);
+function loadWeb() {
+   const app = express();
 
-// app.use("/", (req, res) => {
-//    res.sendFile(path.join(__dirname, "./website/base/index.html"));
-// });
+   app.get("/", (req, res) => res.send("Online!"));
+   app.listen(config.web.port, () =>
+      term.cyan(`> [WEB] | Listening on http://localhost:${config.web.port}\n`)
+   );
+}
 
-// // Require bot file
-// loadClient().then(() => {
-//    http.listen(config.port);
-//    term.cyan(`> [WEB] | Listen on http://localhost:${config.port}\n`);
-// });
-
-loadClient();
+loadClient().then(() => {
+   loadWeb();
+});
