@@ -10,12 +10,12 @@ module.exports = {
     * @param {Client} client
     */
    async execute(client) {
-      if (client.config.mongoDB === "")
+      if (client.config.db.mongoDB === "")
          return term.red("> [DATABASE] | No database url given, skipped\n");
 
       try {
          mongoose.set("strictQuery", false);
-         await mongoose.connect(client.config.mongoDB || "", {
+         await mongoose.connect(client.config.db.mongoDB || "", {
             keepAlive: true,
          });
          if (mongoose.connect)

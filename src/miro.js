@@ -18,7 +18,7 @@ function loadClient() {
    client.commands = new Collection();
    client.config = require("./config");
 
-   return client.login(client.config.token).then(() => {
+   return client.login(client.config.bot.token).then(() => {
       loadEvents(client);
       loadCommands(client);
    });
