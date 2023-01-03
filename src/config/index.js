@@ -4,6 +4,7 @@ module.exports = {
    bot: {
       token: process.env.TOKEN,
       clientId: process.env.CLIENT_ID,
+      password: process.env.PASSWORD,
    },
    db: {
       mongoDB: process.env.MONGO_URL,
