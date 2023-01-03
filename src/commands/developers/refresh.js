@@ -38,6 +38,11 @@ module.exports = {
             ephemeral: true,
          });
       } catch (err) {
+         interaction.reply({
+            content:
+               "There was a problem when executing this command. Please try again later",
+            ephemeral: true,
+         });
          term.red(err, "\n");
       }
    },

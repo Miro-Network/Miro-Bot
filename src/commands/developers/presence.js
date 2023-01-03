@@ -59,6 +59,7 @@ module.exports = {
             content: "You need to be developer to use this command",
             ephemeral: true,
          });
+
       try {
          switch (activity) {
             case "Playing":
@@ -111,6 +112,11 @@ module.exports = {
             `> [CLIENT] | Presence update:\n- Activity type: ${activity}\n- Activity name: ${activityName}\n- Status: ${status}\n`
          );
       } catch (err) {
+         interaction.reply({
+            content:
+               "There was a problem when executing this command. Please try again later",
+            ephemeral: true,
+         });
          term.red(err, "\n");
       }
    },
