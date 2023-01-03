@@ -50,15 +50,6 @@ module.exports = {
 
       const splitPascal = (str, separator) =>
          str.split(/(?=[A-U])/).join(separator);
-      const toPascalCase = (str, separator = false) => {
-         const pascal =
-            str.charAt(0).toUpperCase() +
-            str
-               .slice(1)
-               .toLowerCase()
-               .replace(/[^a-zA-Z0-9]+(.)/g, (match, chr) => chr.toUpperCase());
-         return separator ? splitPascal(pascal, separator) : pascal;
-      };
 
       const getChannelTypeSize = (type) =>
          guild.channels.cache.filter((c) => type.includes(c.type)).size;
@@ -128,9 +119,7 @@ module.exports = {
                         inline: true,
                      },
                      {
-                        name: `· User roles (${maxDisplayRoles(userRoles)} of ${
-                           userRoles.length
-                        }):`,
+                        name: `· User roles:`,
                         value: `${
                            userRoles
                               .slice(0, maxDisplayRoles(userRoles))
@@ -138,9 +127,7 @@ module.exports = {
                         }`,
                      },
                      {
-                        name: `· Bot roles (${maxDisplayRoles(
-                           manageRoles
-                        )} of ${manageRoles.length}):`,
+                        name: `· Bot roles:`,
                         value: `${
                            manageRoles
                               .slice(0, maxDisplayRoles(manageRoles))

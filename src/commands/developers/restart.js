@@ -8,8 +8,8 @@ let term = require("terminal-kit").terminal;
 
 module.exports = {
    data: new SlashCommandBuilder()
-      .setName("reboot")
-      .setDescription("Reboot the bot (dev only)")
+      .setName("restart")
+      .setDescription("Restart the bot (dev only)")
       .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
       .addStringOption((option) =>
          option
@@ -44,6 +44,7 @@ module.exports = {
          await term.yellow(`> [CLIENT] | Restart requested by ${user.tag}\n`);
          interaction.reply({
             content: "Successfully restarted",
+            ephemeral: true,
          });
       } catch (err) {
          interaction.reply({
