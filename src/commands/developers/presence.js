@@ -56,7 +56,7 @@ module.exports = {
 
       if (user.id !== "695449735343112259")
          return interaction.reply({
-            content: "You need to be developer to use this command",
+            content: "You don't have permission to use this command",
             ephemeral: true,
          });
 
